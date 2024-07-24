@@ -36,12 +36,6 @@ const webpackConfig = {
     publicPath: '/',
     hot: true,
     before: (app) => {
-      /*
-       * 编辑器类型 :此处的指令表示的时各个各个编辑器在cmd或terminal中的命令
-       * webstorm
-       * code // vscode
-       * idea
-      */
       app.use('/__open-in-editor', launchEditorMiddleware('code'));
     }
   },
@@ -101,8 +95,7 @@ const webpackConfig = {
       {
         test: /\.(svg|otf|ttf|woff2?|eot|gif|png|jpe?g)(\?\S*)?$/,
         loader: 'url-loader',
-        // todo: 这种写法有待调整
-        query: {
+        options: {
           limit: 10000,
           name: path.posix.join('static', '[name].[hash:7].[ext]')
         }
@@ -116,9 +109,11 @@ const webpackConfig = {
       filename: './index.html',
       favicon: './examples/favicon.ico'
     }),
-    new CopyWebpackPlugin([
-      { from: 'examples/versions.json' }
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'examples/versions.json', to: 'versions.json' }
+      ]
+    }),
     new ProgressBarPlugin(),
     new VueLoaderPlugin(),
     new webpack.DefinePlugin({
@@ -157,7 +152,6 @@ if (isProd) {
     }),
     new OptimizeCSSAssetsPlugin({})
   );
-  // https://webpack.js.org/configuration/optimization/#optimizationsplitchunks
   webpackConfig.optimization.splitChunks = {
     cacheGroups: {
       vendor: {

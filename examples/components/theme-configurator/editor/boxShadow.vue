@@ -72,7 +72,7 @@
   </section>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .plus-button {
   position: absolute;
   left: 90%;

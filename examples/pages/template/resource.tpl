@@ -1,4 +1,4 @@
-<style scoped>
+<style lang="scss" scoped>
   .page-resource {
     padding-top: 55px;
     box-sizing: border-box;

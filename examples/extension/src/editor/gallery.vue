@@ -29,7 +29,7 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 ul, li {
   padding: 0;
   margin: 0;
